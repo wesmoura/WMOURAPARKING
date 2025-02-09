@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(90deg, #00788C, #A1A1A4); /* Azul Claro e Cinza Claro */
+    background-color: #00788C; /* Azul */
     text-align: center;
-    color: white;
+    color: white; /* Texto padrão branco */
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,7 +13,7 @@ body {
 
 .container {
     max-width: 500px;
-    background: rgba(173, 216, 230, 0.9); /* Azul Claro com transparência */
+    background: rgba(255, 255, 255, 0.9); /* Branco com transparência */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
@@ -23,8 +23,13 @@ body {
     justify-content: center;
 }
 
+h1 {
+    color: #00788C; /* Azul para o título */
+    margin-bottom: 10px;
+}
+
 h2 {
-    color: #FFD700; /* Amarelo Suave */
+    color: #00788C; /* Azul para o subtítulo */
 }
 
 button {
@@ -32,7 +37,7 @@ button {
     border: none;
     padding: 10px;
     font-size: 16px;
-    color: white;
+    color: white; /* Texto dos botões em branco */
     cursor: pointer;
     border-radius: 5px;
     margin: 10px;
@@ -42,7 +47,7 @@ button {
 
 button:hover {
     background: #FFD700; /* Amarelo Suave */
-    color: #00788C;
+    color: #00788C; /* Texto em azul */
 }
 
 .hidden {
@@ -61,7 +66,7 @@ button:hover {
 
 #saida-container {
     background: rgba(0, 120, 140, 0.9); /* Azul mais escuro para contraste */
-    color: white;
+    color: white; /* Texto em branco */
     padding: 15px;
     border-radius: 10px;
     margin-top: 15px;
