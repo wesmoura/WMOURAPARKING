@@ -3,43 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR PARKING WMOURA</title>
+    <title>QR Parking WMoura</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link para o CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            width: 300px;
-        }
-        button {
-            background-color: black;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin: 10px;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 5px;
-        }
-        .hidden {
-            display: none;
-        }
-        #qrcode {
-            margin-top: 10px;
-        }
-    </style>
+    <script src="script.js" defer></script> <!-- Link para o JS -->
 </head>
 <body>
 
@@ -55,60 +22,5 @@
         </div>
     </div>
 
-    <script>
-        let entradas = JSON.parse(localStorage.getItem("entradas")) || {}; // Recupera dados
-
-        function registrarEntrada() {
-            let placa = prompt("Digite a placa do veículo (ex: ABC1234):").toUpperCase();
-            if (!placa) {
-                alert("Placa inválida!");
-                return;
-            }
-
-            let codigo = Math.floor(100000 + Math.random() * 900000);
-            let horaEntrada = new Date();
-
-            entradas[placa] = { codigo, horaEntrada };
-            localStorage.setItem("entradas", JSON.stringify(entradas));
-
-            alert(`Entrada registrada!\nPlaca: ${placa}\nCódigo: ${codigo}\nHora: ${horaEntrada.toLocaleString()}`);
-        }
-
-        function registrarSaida() {
-            let placa = prompt("Digite a placa do veículo para saída:").toUpperCase();
-            if (!entradas[placa]) {
-                alert("Placa não encontrada!");
-                return;
-            }
-
-            let horaSaida = new Date();
-            let horaEntrada = new Date(entradas[placa].horaEntrada);
-            let tempoTotal = Math.round((horaSaida - horaEntrada) / (1000 * 60)); // Minutos
-            let valorTotal = (tempoTotal * 0.50).toFixed(2); // R$0.50 por minuto
-
-            document.getElementById("info-saida").innerHTML = `
-                <p>Placa: ${placa}</p>
-                <p>Entrada: ${horaEntrada.toLocaleString()}</p>
-                <p>Saída: ${horaSaida.toLocaleString()}</p>
-                <p>Tempo Total: ${tempoTotal} min</p>
-                <p>Valor a pagar: R$ ${valorTotal}</p>
-            `;
-
-            document.getElementById("saida-container").classList.remove("hidden");
-
-            let qrcodeDiv = document.getElementById("qrcode");
-            qrcodeDiv.innerHTML = "";
-            new QRCode(qrcodeDiv, `https://pagamento.com/cobranca?placa=${placa}&valor=${valorTotal}`);
-
-            setTimeout(() => {
-                delete entradas[placa];
-                localStorage.setItem("entradas", JSON.stringify(entradas));
-                alert(`Pagamento confirmado para o veículo ${placa}. Dados apagados.`);
-                document.getElementById("saida-container").classList.add("hidden");
-            }, 10000);
-        }
-    </script>
-
 </body>
 </html>
-
