@@ -52,3 +52,4 @@ function gerarQRCode() {
     }, 10000); // Simula pagamento após 10 segundos
 }
 
+
