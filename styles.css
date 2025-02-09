@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, #00788C, #A1A1A4); /* Azul Claro e Cinza Claro */
+    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 500px;
+    background: rgba(173, 216, 230, 0.9); /* Azul Claro com transparência */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h2 {
+    color: #FFD700; /* Amarelo Suave */
+}
+
+button {
+    background: #00788C; /* Azul Claro */
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+    transition: 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background: #FFD700; /* Amarelo Suave */
+    color: #00788C;
+}
+
+.hidden {
+    display: none;
+}
+
+#qrcode-container {
+    margin-top: 20px;
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#saida-container {
+    background: rgba(0, 120, 140, 0.9); /* Azul mais escuro para contraste */
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
