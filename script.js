@@ -1,4 +1,4 @@
-let entradas = JSON.parse(localStorage.getItem("entradas")) || {}; // Recupera do localStorage
+let entradas = JSON.parse(localStorage.getItem("entradas")) || {}; // Recupera dados
 
 function registrarEntrada() {
     let placa = prompt("Digite a placa do veículo (ex: ABC1234):").toUpperCase();
@@ -7,26 +7,24 @@ function registrarEntrada() {
         return;
     }
 
-    let codigo = Math.floor(100000 + Math.random() * 900000); // Código único
+    let codigo = Math.floor(100000 + Math.random() * 900000);
     let horaEntrada = new Date();
 
     entradas[placa] = { codigo, horaEntrada };
-    localStorage.setItem("entradas", JSON.stringify(entradas)); // Salva no localStorage
+    localStorage.setItem("entradas", JSON.stringify(entradas));
 
-    alert(`Registro confirmado!\nPlaca: ${placa}\nCódigo: ${codigo}\nEntrada: ${horaEntrada.toLocaleString()}`);
+    alert(`Entrada registrada!\nPlaca: ${placa}\nCódigo: ${codigo}\nHora: ${horaEntrada.toLocaleString()}`);
 }
 
-function gerarQRCode() {
+function registrarSaida() {
     let placa = prompt("Digite a placa do veículo para saída:").toUpperCase();
-    
     if (!entradas[placa]) {
-        alert("Placa não encontrada! Digite uma placa válida.");
+        alert("Placa não encontrada!");
         return;
     }
 
     let horaSaida = new Date();
     let horaEntrada = new Date(entradas[placa].horaEntrada);
-
     let tempoTotal = Math.round((horaSaida - horaEntrada) / (1000 * 60)); // Minutos
     let valorTotal = (tempoTotal * 0.50).toFixed(2); // R$0.50 por minuto
 
@@ -38,18 +36,16 @@ function gerarQRCode() {
         <p>Valor a pagar: R$ ${valorTotal}</p>
     `;
 
-    document.getElementById("qrcode-container").classList.remove("hidden");
-    
+    document.getElementById("saida-container").classList.remove("hidden");
+
     let qrcodeDiv = document.getElementById("qrcode");
-    qrcodeDiv.innerHTML = ""; // Limpa QR Code anterior
+    qrcodeDiv.innerHTML = "";
     new QRCode(qrcodeDiv, `https://pagamento.com/cobranca?placa=${placa}&valor=${valorTotal}`);
 
-    // Apagar do banco de dados após pagamento
     setTimeout(() => {
         delete entradas[placa];
         localStorage.setItem("entradas", JSON.stringify(entradas));
         alert(`Pagamento confirmado para o veículo ${placa}. Dados apagados.`);
-    }, 10000); // Simula pagamento após 10 segundos
+        document.getElementById("saida-container").classList.add("hidden");
+    }, 10000);
 }
-
-
