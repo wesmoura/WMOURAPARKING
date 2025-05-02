@@ -4,24 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Parking WMoura</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="script.js" defer></script> <!-- Link para o JS -->
+    <script src="script.js" defer></script>
 </head>
 <body>
-
     <div class="container">
-        <h1>QR PARKING WMOURA</h1> <!-- Título adicionado -->
-        <h2>Estacionamento</h2>
-        <button onclick="registrarEntrada()">Registrar Entrada</button>
-        <button onclick="registrarSaida()">Registrar Saída</button>
+        <header>
+            <h1>QR Parking WMoura</h1>
+            <p>Powered by Tesla Efficiency</p>
+        </header>
 
-        <div id="saida-container" class="hidden">
+        <div class="control-panel">
+            <button onclick="registrarEntrada()" class="action-button">Registrar Entrada</button>
+            <button onclick="registrarSaida()" class="action-button">Registrar Saída</button>
+        </div>
+
+        <div id="saida-container" class="info-card hidden">
             <h3>Detalhes da Saída</h3>
             <p id="info-saida"></p>
-            <div id="qrcode"></div>
+            <div id="qrcode" class="qrcode-wrapper"></div>
+        </div>
+
+        <div class="history-section">
+            <button onclick="toggleHistorico()" id="historico-toggle" class="toggle-button">Mostrar Histórico do Dia</button>
+            <div id="historico-container" class="info-card hidden">
+                <h3>Histórico do Dia</h3>
+                <table id="historico-tabela">
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Tempo (min)</th>
+                            <th>Valor (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historico-corpo"></tbody>
+                </table>
+                <button onclick="limparHistorico()" id="limpar-historico" class="clear-button">Limpar Histórico do Dia</button>
+            </div>
         </div>
     </div>
-
 </body>
 </html>
