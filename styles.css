@@ -1,73 +1,182 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #00788C; /* Azul */
-    text-align: center;
-    color: white; /* Texto padrão branco */
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+    color: #ffffff;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
 }
 
 .container {
-    max-width: 500px;
-    background: rgba(255, 255, 255, 0.9); /* Branco com transparência */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
+    max-width: 800px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+header p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #aaaaaa;
+    margin: 5px 0 0;
+}
+
+.control-panel {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
     justify-content: center;
 }
 
-h1 {
-    color: #00788C; /* Azul para o título */
-    margin-bottom: 10px;
-}
-
-h2 {
-    color: #00788C; /* Azul para o subtítulo */
-}
-
-button {
-    background: #00788C; /* Azul Claro */
+.action-button {
+    background: #e82127;
     border: none;
-    padding: 10px;
-    font-size: 16px;
-    color: white; /* Texto dos botões em branco */
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #ffffff;
     cursor: pointer;
-    border-radius: 5px;
-    margin: 10px;
-    transition: 0.3s;
-    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background 0.3s ease;
+    flex: 1;
+    max-width: 200px;
 }
 
-button:hover {
-    background: #FFD700; /* Amarelo Suave */
-    color: #00788C; /* Texto em azul */
+.action-button:hover {
+    background: #ff3c41;
+    transform: translateY(-2px);
+}
+
+.action-button:active {
+    transform: translateY(0);
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.info-card h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+#info-saida p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #dddddd;
+}
+
+.qrcode-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 5px;
 }
 
 .hidden {
     display: none;
+    opacity: 0;
 }
 
-#qrcode-container {
-    margin-top: 20px;
+.history-section {
+    width: 100%;
 }
 
-#qrcode {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+.toggle-button {
+    background: #333333;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
+    transition: background 0.3s ease;
 }
 
-#saida-container {
-    background: rgba(0, 120, 140, 0.9); /* Azul mais escuro para contraste */
-    color: white; /* Texto em branco */
-    padding: 15px;
-    border-radius: 10px;
+.toggle-button:hover {
+    background: #444444;
+}
+
+#historico-tabela {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 15px;
+}
+
+#historico-tabela th, #historico-tabela td {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    font-size: 0.9rem;
+    color: #dddddd;
+    text-align: center;
+}
+
+#historico-tabela th {
+    background: #e82127;
+    color: #ffffff;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+#historico-tabela tbody tr {
+    background: rgba(255, 255, 255, 0.05);
+    transition: background 0.3s ease;
+}
+
+#historico-tabela tbody tr:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+#limpar-historico {
+    background: #e82127;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 15px;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+#limpar-historico:hover {
+    background: #ff3c41;
 }
