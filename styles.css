@@ -203,13 +203,16 @@ footer p {
 
 .social-icons a {
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 2rem; /* Aumentado para melhor visibilidade */
     transition: color 0.3s ease, transform 0.2s ease;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .social-icons a:hover {
     color: #e82127;
-    transform: translateY(-2px);
+    transform: scale(1.1); /* Efeito de escala suave */
 }
 
 .signature {
