@@ -29,7 +29,6 @@ function registrarSaida() {
     let tempoTotal = Math.round((horaSaida - horaEntrada) / (1000 * 60));
     let valorTotal = (tempoTotal * 0.50).toFixed(2);
 
-    // Exibir detalhes da saída
     document.getElementById("info-saida").innerHTML = `
         <p>Placa: ${placa}</p>
         <p>Entrada: ${horaEntrada.toLocaleString()}</p>
@@ -39,24 +38,21 @@ function registrarSaida() {
     `;
     document.getElementById("saida-container").classList.remove("hidden");
 
-    // Gerar QR code para pagamento
     let qrcodeDiv = document.getElementById("qrcode");
     qrcodeDiv.innerHTML = "";
     new QRCode(qrcodeDiv, `https://pagamento.com/cobranca?placa=${placa}&valor=${valorTotal}`);
 
-    // Armazenar no histórico com formato consistente
     historico.push({
         placa: placa,
         entrada: horaEntrada.toLocaleString(),
         saida: horaSaida.toLocaleString(),
         tempo: tempoTotal,
         valor: valorTotal,
-        data: horaSaida.toISOString().split('T')[0] // Armazenar a data para filtragem
+        data: horaSaida.toISOString().split('T')[0]
     });
     localStorage.setItem("historico", JSON.stringify(historico));
     atualizarHistorico();
 
-    // Limpar entrada após pagamento
     setTimeout(() => {
         delete entradas[placa];
         localStorage.setItem("entradas", JSON.stringify(entradas));
@@ -66,7 +62,7 @@ function registrarSaida() {
 }
 
 function atualizarHistorico() {
-    const hoje = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+    const hoje = new Date().toISOString().split('T')[0];
     const corpoTabela = document.getElementById("historico-corpo");
     corpoTabela.innerHTML = "";
 
