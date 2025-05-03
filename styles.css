@@ -92,6 +92,13 @@ header p {
     margin-bottom: 15px;
 }
 
+.info-card h4 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #aaaaaa;
+    margin: 15px 0 5px;
+}
+
 #info-saida p {
     font-size: 1rem;
     margin: 5px 0;
@@ -114,6 +121,11 @@ header p {
 
 .history-section {
     width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .toggle-button {
@@ -126,6 +138,7 @@ header p {
     cursor: pointer;
     border-radius: 8px;
     width: 100%;
+    max-width: 400px;
     transition: background 0.3s ease;
 }
 
@@ -133,33 +146,44 @@ header p {
     background: #444444;
 }
 
-#historico-tabela {
+#historico-container {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#historico-tabela th, #historico-tabela td {
+#historico-tabela, #ativos-tabela {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    table-layout: fixed;
+}
+
+#historico-tabela th, #historico-tabela td, #ativos-tabela th, #ativos-tabela td {
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 10px;
     font-size: 0.9rem;
     color: #dddddd;
     text-align: center;
+    box-sizing: border-box;
 }
 
-#historico-tabela th {
+#historico-tabela th, #ativos-tabela th {
     background: #e82127;
     color: #ffffff;
     font-weight: 400;
     text-transform: uppercase;
 }
 
-#historico-tabela tbody tr {
+#historico-tabela tbody tr, #ativos-tabela tbody tr {
     background: rgba(255, 255, 255, 0.05);
     transition: background 0.3s ease;
 }
 
-#historico-tabela tbody tr:hover {
+#historico-tabela tbody tr:hover, #ativos-tabela tbody tr:hover {
     background: rgba(255, 255, 255, 0.15);
 }
 
@@ -174,6 +198,7 @@ header p {
     border-radius: 8px;
     margin-top: 15px;
     width: 100%;
+    max-width: 400px;
     transition: background 0.3s ease;
 }
 
@@ -203,7 +228,7 @@ footer p {
 
 .social-icons a {
     color: #ffffff;
-    font-size: 2rem; /* Aumentado para melhor visibilidade */
+    font-size: 2rem;
     transition: color 0.3s ease, transform 0.2s ease;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -212,7 +237,7 @@ footer p {
 
 .social-icons a:hover {
     color: #e82127;
-    transform: scale(1.1); /* Efeito de escala suave */
+    transform: scale(1.1);
 }
 
 .signature {
