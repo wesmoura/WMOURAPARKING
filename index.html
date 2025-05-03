@@ -14,7 +14,7 @@
     <div class="container">
         <header>
             <h1>QR Parking WMoura</h1>
-            <p>Powered by Tesla WESLEY MOURA</p>
+            <p>Desenvolvido por Wesley Moura</p>
         </header>
 
         <div class="control-panel">
@@ -43,6 +43,19 @@
                         </tr>
                     </thead>
                     <tbody id="historico-corpo"></tbody>
+                </table>
+                <h4>Carros ainda no estacionamento</h4>
+                <table id="ativos-tabela">
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Tempo (min)</th>
+                            <th>Valor (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ativos-corpo"></tbody>
                 </table>
                 <button onclick="limparHistorico()" id="limpar-historico" class="clear-button">Limpar Histórico do Dia</button>
             </div>
