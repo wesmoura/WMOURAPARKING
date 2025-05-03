@@ -3,7 +3,7 @@ let historico = JSON.parse(localStorage.getItem("historico")) || [];
 
 function registrarEntrada() {
     let placa = prompt("Digite a placa do veículo (ex: ABC1234):").toUpperCase();
-    if (!placa) {
+    if (!placa || placa.trim() === "") {
         alert("Placa inválida!");
         return;
     }
@@ -11,16 +11,17 @@ function registrarEntrada() {
     let codigo = Math.floor(100000 + Math.random() * 900000);
     let horaEntrada = new Date();
 
-    entradas[placa] = { codigo, horaEntrada };
+    entradas[placa] = { placa, codigo, horaEntrada }; // Ensure placa is explicitly stored
     localStorage.setItem("entradas", JSON.stringify(entradas));
 
     alert(`Entrada registrada!\nPlaca: ${placa}\nCódigo: ${codigo}\nHora: ${horaEntrada.toLocaleString()}`);
+    atualizarHistorico();
 }
 
 function registrarSaida() {
     let placa = prompt("Digite a placa do veículo para saída:").toUpperCase();
-    if (!entradas[placa]) {
-        alert("Placa não encontrada!");
+    if (!placa || placa.trim() === "" || !entradas[placa]) {
+        alert("Placa não encontrada ou inválida!");
         return;
     }
 
@@ -42,20 +43,24 @@ function registrarSaida() {
     qrcodeDiv.innerHTML = "";
     new QRCode(qrcodeDiv, `https://pagamento.com/cobranca?placa=${placa}&valor=${valorTotal}`);
 
-    historico.push({
-        placa: placa,
-        entrada: horaEntrada.toLocaleString(),
-        saida: horaSaida.toLocaleString(),
-        tempo: tempoTotal,
-        valor: valorTotal,
-        data: horaSaida.toISOString().split('T')[0]
-    });
-    localStorage.setItem("historico", JSON.stringify(historico));
+    // Only add to historico if placa is valid
+    if (placa) {
+        historico.push({
+            placa: placa,
+            entrada: horaEntrada.toLocaleString(),
+            saida: horaSaida.toLocaleString(),
+            tempo: tempoTotal,
+            valor: valorTotal,
+            data: horaSaida.toISOString().split('T')[0]
+        });
+        localStorage.setItem("historico", JSON.stringify(historico));
+    }
+
+    delete entradas[placa];
+    localStorage.setItem("entradas", JSON.stringify(entradas));
     atualizarHistorico();
 
     setTimeout(() => {
-        delete entradas[placa];
-        localStorage.setItem("entradas", JSON.stringify(entradas));
         alert(`Pagamento confirmado para o veículo ${placa}. Dados apagados.`);
         document.getElementById("saida-container").classList.add("hidden");
     }, 10000);
@@ -63,12 +68,17 @@ function registrarSaida() {
 
 function atualizarHistorico() {
     const hoje = new Date().toISOString().split('T')[0];
-    const corpoTabela = document.getElementById("historico-corpo");
-    corpoTabela.innerHTML = "";
+    const corpoHistorico = document.getElementById("historico-corpo");
+    const corpoAtivos = document.getElementById("ativos-corpo");
+    corpoHistorico.innerHTML = "";
+    corpoAtivos.innerHTML = "";
 
-    const registrosDoDia = historico.filter(registro => registro.data === hoje);
+    // Exibe carros que já saíram (histórico), excluindo registros inválidos
+    const registrosDoDia = historico.filter(registro => 
+        registro.data === hoje && registro.placa && registro.placa.trim() !== "" && registro.placa !== "undefined"
+    );
     if (registrosDoDia.length === 0) {
-        corpoTabela.innerHTML = "<tr><td colspan='5'>Nenhum registro para hoje.</td></tr>";
+        corpoHistorico.innerHTML = "<tr><td colspan='5'>Nenhum registro para hoje.</td></tr>";
     } else {
         registrosDoDia.forEach(registro => {
             const row = document.createElement("tr");
@@ -79,7 +89,27 @@ function atualizarHistorico() {
                 <td>${registro.tempo}</td>
                 <td>${registro.valor}</td>
             `;
-            corpoTabela.appendChild(row);
+            corpoHistorico.appendChild(row);
+        });
+    }
+
+    // Exibe carros ainda no estacionamento
+    const ativos = Object.values(entradas).filter(entrada => 
+        entrada.placa && entrada.placa.trim() !== "" && entrada.placa !== "undefined"
+    );
+    if (ativos.length === 0) {
+        corpoAtivos.innerHTML = "<tr><td colspan='5'>Nenhum carro no estacionamento.</td></tr>";
+    } else {
+        ativos.forEach(entrada => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${entrada.placa}</td>
+                <td>${new Date(entrada.horaEntrada).toLocaleString()}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            `;
+            corpoAtivos.appendChild(row);
         });
     }
 }
